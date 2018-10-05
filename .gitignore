@@ -1,0 +1,7 @@
+/iJO1366_test/*.xml
+/*/*.out
+/*/medium.tsv
+/*/data/protein_summary.tsv
+/subtilis/*.xml
+/Athal/*.xml
+/*/data/uniprot.csv
