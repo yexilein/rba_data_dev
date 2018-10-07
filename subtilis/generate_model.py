@@ -64,47 +64,6 @@ def flagella_activation_aggregate():
     return aggregate
 
 
-def add_zero_cost_flags(enzymes):
-    with open('data/zero_cost.csv', 'r') as f:
-        zero_cost = []
-        for line in f:
-            zero_cost += line.rstrip('\n').split('\t')
-    for enzyme in enzymes.enzymes:
-        id_ = old_name(enzyme.id)
-        if id_ in zero_cost:
-            enzyme.zero_cost = True
-            zero_cost.remove(id_)
-
-
-def read_activities(f, medium):
-    fn_type = None
-    result = {}
-    for line in f:
-        token = line.rstrip('\n').split('\t')
-        if token[0] == 'function':
-            # format 'function id type'
-            if token[1] == medium:
-                fn_type = token[2]
-        else:
-            # format 'reaction_id fn_id param1_id param1_value ... paramn_value
-            if token[1] == medium:
-                reaction = token[0]
-                params = iter(token[2:])
-                result[reaction] = {
-                    id_: value for id_, value in zip(params, params)
-                    }
-    if not fn_type:
-        raise UserWarning('Could not retrieve medium {}.'.format(medium))
-    return result
-
-
-def old_name(new_name):
-    if new_name == 'R_maintenance_atp':
-        return 'Eatpm'
-    else:
-        return new_name.rsplit('_', 1)[0]
-
-
 def apply_old_stoichiometries(enzymes):
     with open('data/stoichiometry.csv', 'r') as f:
         data = {}
