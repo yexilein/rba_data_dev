@@ -18,7 +18,6 @@ def main():
     subtilis = builder.build_model()
     subtilis.set_medium('data/curated_medium.tsv')
     EfficiencyInjecter(subtilis, 'data/catalytic_activity_medium_2.csv')
-    apply_old_stoichiometries(subtilis.enzymes)
     add_flagella_constraint(subtilis)
     subtilis.write()
 
@@ -63,19 +62,6 @@ def flagella_activation_aggregate():
     )
     return aggregate
 
-
-def apply_old_stoichiometries(enzymes):
-    with open('data/stoichiometry.csv', 'r') as f:
-        data = {}
-        for line in f:
-            [species, sto] = line.rstrip('\n').split('\t')
-            data[species] = float(sto)
-    for enzyme in enzymes.enzymes:
-        for sr in enzyme.machinery_composition.reactants:
-            try:
-                sr.stoichiometry = data[sr.species]
-            except KeyError:
-                pass
 
 if __name__ == "__main__":
     main()
