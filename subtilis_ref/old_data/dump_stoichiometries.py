@@ -16,5 +16,4 @@ if __name__ == "__main__":
             data[species] = sto
     print('Inconsistent data for species ' + ', '.join(inconsistent))
     with open('stoichiometry.csv', 'w') as f:
-        f.write('\n'.join(['\t'.join([spe, sto]) for spe, sto in data.iteritems()]))
-    
+        f.write('\n'.join(['\t'.join([spe, sto]) for spe, sto in data.items()]))
