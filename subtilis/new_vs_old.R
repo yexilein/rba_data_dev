@@ -55,7 +55,9 @@ plot_results <- function(fluxes, growth_rates) {
     geom_abline(slope=1, linetype = 2) +
     facet_wrap(vars(experiment), labeller = labeller(experiment = labels)) +
     theme_classic() +
-    theme(strip.background = element_blank(), strip.text.x = element_blank()) +
+    theme(strip.background = element_blank(), strip.text.x = element_blank(),
+          text = element_text(size=14),
+          axis.text.x = element_text(size=14), axis.text.y = element_text(size=14)) +
     coord_fixed(xlim = c(-60,60)) +
     geom_text(data = inset, aes(x = -Inf, y = Inf, label = inset_label(growth_rate, rsquared)), hjust = 0, vjust = 1) +
     labs(x = 'Fluxes from hand-curated model\n(mmol/gCDW/h)',
